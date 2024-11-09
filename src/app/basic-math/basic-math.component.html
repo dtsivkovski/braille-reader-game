@@ -1,9 +1,9 @@
 <main class="main">
   <div class="flex flex-col items-center justify-center h-screen">
     <h1 class="text-4xl font-bold mb-4">Basic Math Game</h1>
-    <hr class="min-w-80 border-gray-400 mb-4" />
+    <hr class="min-w-80 border-gray-400 mb-4" aria-hidden="true" />
     <div class="flex flex-row items-center gap-4">
-      <p class="text-3xl" id="question">{{ question.num1 }} {{ question.operator }} {{ question.num2 }} = </p>
+      <p class="text-3xl" id="question">{{ question.num1 }} {{ question.operatorName }} {{ question.num2 }} = </p>
       <input
         type="number"
         id="answer"

@@ -17,13 +17,28 @@ export class BasicMathComponent {
 }
 
 const generateQuestion = () => {
+  // define operators and names
   const operators = ['+', '-', '*', '/'];
-  const operator = operators[Math.floor(Math.random() * operators.length)];
-  const num1 = Math.floor(Math.random() * 10);
-  const num2 = Math.floor(Math.random() * 10);
+  const operatorNames = ['plus', 'minus', 'times', 'divided by'];
+
+  // generate random operator and name
+  const randomSelect = Math.floor(Math.random() * operators.length);
+  const operator = operators[randomSelect];
+  const operatorName = operatorNames[randomSelect];
+
+  // generate random numbers
+  const num1 = Math.floor(Math.random() * 100);
+  const num2 = Math.floor(Math.random() * 100);
+
+  // check for integer division and division by 0
+  if (operator === '/' && (num1 % num2 !== 0 || num2 === 0)) {
+    return generateQuestion();
+  }
+
   return {
     num1,
     operator,
+    operatorName,
     num2
   }
 }
