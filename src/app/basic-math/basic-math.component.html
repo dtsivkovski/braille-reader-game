@@ -1,6 +1,6 @@
 <main class="main">
   <div class="flex flex-row justify-start p-4">
-    <a class="bg-transparent text-gray-800 rounded-md border border-gray-500 pr-4 pl-3 py-2 flex flex-row items-center" href="/">
+    <a class="bg-transparent text-gray-800 rounded-md border border-gray-500 pr-4 pl-3 py-2 flex flex-row items-center focus:outline-2 focus:outline-fuchsia-600" href="/">
       <lucide-icon [img]="ArrowLeftIcon" class="w-4 h-4 mr-2" />
       Back to Home
     </a>
@@ -59,7 +59,8 @@
                         rounded-md
                         transition-colors
                         duration-200
-                        text-center"
+                        text-center
+                        focus:outline-2 focus:outline-black"
           (click)="submitAnswer()">
           Check Answer
         </button>
