@@ -1,11 +1,12 @@
 <main class="main">
+  <div class="flex flex-col h-screen">
   <div class="flex flex-row justify-start p-4">
     <a class="bg-transparent text-gray-800 rounded-md border border-gray-500 pr-4 pl-3 py-2 flex flex-row items-center focus:outline-2 focus:outline-fuchsia-600" href="/">
       <lucide-icon [img]="ArrowLeftIcon" class="w-4 h-4 mr-2" />
       Back to Home
     </a>
   </div>
-  <div class="flex flex-col items-center justify-center h-screen">
+  <div class="flex flex-col items-center justify-center h-full pb-16">
     <h1 class="text-4xl font-bold mb-4">Basic Math Game</h1>
     <hr class="min-w-80 border-gray-400 mb-4" aria-hidden="true" />
     @if (isOnResult) {
@@ -67,4 +68,5 @@
       </div>
     }
   </div>
+</div>
 </main>
