@@ -1,27 +1,56 @@
-# BrailleGame
+# Braille Game
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.9.
+An interactive educational game built with Angular to help users practice basic math operations. Currently features a basic math game module with more features planned for future releases.
 
-## Development server
+## Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- Basic Math Game
+  - Addition, subtraction, multiplication, and division practice
+  - Randomized questions with appropriate difficulty levels
+  - Immediate feedback on answers
+  - Accessible interface
 
-## Code scaffolding
+## Accessing the Game
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+The game can be played online, deployed at [braille-reader-game.vercel.app](https://braille-reader-game.vercel.app/).
 
-## Build
+## Installation and Development
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Prerequisites
 
-## Running unit tests
+- Node.js (v18 or higher)
+- npm (comes with Node.js)
+- Angular CLI (v18.2.0 or higher)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Steps to Run Locally
 
-## Running end-to-end tests
+1. Clone the repository:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```bash
+git clone https://github.com/dtsivkovski/braille-reader-game.git
+cd braille-reader-game
+```
 
-## Further help
+2. Install dependencies:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```bash
+npm install
+```
+
+3. Run the development server:
+
+```bash
+ng serve
+```
+
+4. Navigate to [localhost:4200](http://localhost:4200) to play
+
+### Project Structure
+
+- `src/app/` - Main application code
+  - `basic-math/` - Basic math game component
+  - `home/` - Home page component
+  - `types/` - TypeScript interfaces and types
+- `public/` - Static assets
+- `src/styles.scss` - Global styles
+
