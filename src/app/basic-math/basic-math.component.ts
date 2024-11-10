@@ -86,59 +86,29 @@ export class BasicMathComponent {
     // define operators and names
     const operators = ['+', '-', '*', '/'];
     const operatorNames = ['plus', 'minus', 'times', 'divided by'];
+    const operatorKeys = ['addition', 'subtraction', 'multiplication', 'division'];
 
     // generate random operator and name
     let operator = operators[Math.floor(Math.random() * operators.length)];
-    let operatorName = operatorNames[operators.indexOf(operator)];
     // if type is provided, use it instead of random operator
     if (type !== null) {
       operator = type;
-      operatorName = operatorNames[operators.indexOf(operator)];
     }
+    let operatorName = operatorNames[operators.indexOf(operator)];
+    let operatorKey = operatorKeys[operators.indexOf(operator)];
 
     // generate random numbers
     let num1: number = 10;
     let num2: number = 10;
-    if (operator === '+') {
-      num1 = Math.floor(
-        Math.random() *
-        (this.questionBounds.addition.max_n1 - this.questionBounds.addition.min_n1 + 1)
-      ) + this.questionBounds.addition.min_n1;
-      num2 = Math.floor(
-        Math.random() *
-        (this.questionBounds.addition.max_n2 - this.questionBounds.addition.min_n2 + 1)
-      ) + this.questionBounds.addition.min_n2;
-    }
-    else if (operator === '-') {
-      num1 = Math.floor(
-        Math.random() *
-        (this.questionBounds.subtraction.max_n1 - this.questionBounds.subtraction.min_n1 + 1)
-      ) + this.questionBounds.subtraction.min_n1;
-      num2 = Math.floor(
-        Math.random() *
-        (this.questionBounds.subtraction.max_n2 - this.questionBounds.subtraction.min_n2 + 1)
-      ) + this.questionBounds.subtraction.min_n2;
-    }
-    else if (operator === '*') {
-      num1 = Math.floor(
-        Math.random() *
-        (this.questionBounds.multiplication.max_n1 - this.questionBounds.multiplication.min_n1 + 1)
-      ) + this.questionBounds.multiplication.min_n1;
-      num2 = Math.floor(
-        Math.random() *
-        (this.questionBounds.multiplication.max_n2 - this.questionBounds.multiplication.min_n2 + 1)
-      ) + this.questionBounds.multiplication.min_n2;
-    }
-    else if (operator === '/') {
-      num1 = Math.floor(
-        Math.random() *
-        (this.questionBounds.division.max_n1 - this.questionBounds.division.min_n1 + 1)
-      ) + this.questionBounds.division.min_n1;
-      num2 = Math.floor(
-        Math.random() *
-        (this.questionBounds.division.max_n2 - this.questionBounds.division.min_n2 + 1)
-      ) + this.questionBounds.division.min_n2;
-    }
+    const bounds = this.questionBounds[operatorKey as keyof QuestionBounds]; // bounds as defined in questionBounds
+    num1 = Math.floor(
+      Math.random() *
+      (bounds.max_n1 - bounds.min_n1 + 1)
+    ) + bounds.min_n1;
+    num2 = Math.floor(
+      Math.random() *
+      (bounds.max_n2 - bounds.min_n2 + 1)
+    ) + bounds.min_n2;
 
     // check for integer division and division by 0
     if (operator === '/' && (num1 % num2 !== 0 || num2 === 0)) {
