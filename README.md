@@ -1,6 +1,6 @@
 # Braille Game
 
-An interactive educational game built with Angular to help users practice basic math operations. Currently features a basic math game module with more features planned for future releases. The goal of the game is to be as minimal as possible to focus on accessiblity and ease of use with a screen reader and/or connected braille display.
+An interactive educational game built with Angular to help users learn and practice various STEM skills. The goal of the website and included games is to be as minimal as possible to focus on accessiblity and ease of use with a screen reader and/or connected braille display.
 
 ## Features
 
