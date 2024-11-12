@@ -48,23 +48,18 @@ export class BasicMathComponent {
   isOnResult: boolean = false;
 
   /**
-   * Handles the input change event from the user
-   * @param event The input event from the user
-   * @description Extracts the numeric value from the input event and updates the current answer to be used for submission
-   */
-  onInput(event: Event) {
-    const value = (event.target as HTMLInputElement).value;
-    this.currentAnswer = value;
-  }
-
-  /**
    * Generates a new question and resets the answer and result flags
    */
   nextQuestion(): void {
-    this.question = this.generateQuestion();
-    this.isOnResult = false;
-  }
+    if (this.isOnResult) {
+      this.question = this.generateQuestion();
+      this.isOnResult = false;
+    } else {
+      this.currentAnswer = (document.getElementById('answer') as HTMLInputElement).value;
+      this.submitAnswer();
+    }
 
+  }
   /**
    * Submits the user's answer from input update and checks if it is correct
    */

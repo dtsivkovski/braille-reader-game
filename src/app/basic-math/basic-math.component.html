@@ -9,64 +9,49 @@
   <div class="flex flex-col items-center justify-center h-full pb-16">
     <h1 class="text-4xl font-bold mb-4">Basic Math Game</h1>
     <hr class="min-w-80 border-gray-400 mb-4" aria-hidden="true" />
-    @if (isOnResult) {
+
       <div class="flex flex-row items-center gap-4">
-        @if (answer?.isCorrect) {
-          <p class="text-3xl" id="result">Correct!</p>
+        @if (isOnResult) {
+          @if (answer?.isCorrect) {
+            <p class="text-3xl" id="result" aria-live="assertive">Correct!</p>
+          } @else {
+            <p class="text-3xl" id="result" aria-live="assertive">The correct answer is {{ answer?.answer }}</p>
+          }
         } @else {
-          <p class="text-3xl" id="result">Incorrect! The correct answer is {{ answer?.answer }}</p>
-        }
+          <p class="text-3xl" id="question">{{ question.num1 }} {{ question.operatorName }} {{ question.num2 }} = </p>
+          <input
+              type="number"
+              id="answer"
+              autocomplete="off"
+              class="border border-slate-300 rounded-md py-2 px-3 shadow-sm focus:border-pink-600 focus:outline-none focus:ring-fuchsia-600 focus:ring-1"
+              placeholder="Enter your answer"
+              (keydown.enter)="submitAnswer()"
+          />
+      }
       </div>
-      <div class="flex flex-row items-center gap-4 mt-4">
-        <button class="bg-gradient-to-br
-              from-purple-600
-              to-pink-500
-              hover:from-purple-600
-              hover:to-pink-600
-              text-white
-              px-4
-              py-2
-              rounded-md
-              transition-colors
-              duration-200
-              text-center"
-          (click)="nextQuestion()">
-          Next Question
-        </button>
-      </div>
-    }
-    @else  {
-      <div class="flex flex-row items-center gap-4">
-        <p class="text-3xl" id="question">{{ question.num1 }} {{ question.operatorName }} {{ question.num2 }} = </p>
-        <input
-          type="number"
-          id="answer"
-          autocomplete="off"
-          class="border border-slate-300 rounded-md py-2 px-3 shadow-sm focus:border-pink-600 focus:outline-none focus:ring-fuchsia-600 focus:ring-1"
-          placeholder="Enter your answer"
-          (input)="onInput($event)"
-          (keydown.enter)="submitAnswer()"
-        />
-      </div>
-      <div class="flex flex-row items-center gap-4 mt-4">
-        <button class="bg-gradient-to-br
-                        from-purple-600
-                        to-pink-500
-                        hover:from-purple-600
-                        hover:to-pink-600
-                        text-white
-                        px-4
-                        py-2
-                        rounded-md
-                        transition-colors
-                        duration-200
-                        text-center
-                        focus:outline-2 focus:outline-black"
-          (click)="submitAnswer()">
+    <div class="flex flex-row items-center gap-4 mt-4">
+      <button class="bg-gradient-to-br
+            from-purple-600
+            to-pink-500
+            hover:from-purple-600
+            hover:to-pink-600
+            text-white
+            px-4
+            py-2
+            rounded-md
+            transition-colors
+            duration-200
+            text-center"
+        (click)="nextQuestion()"
+        aria-live="assertive"
+        >
+        @if (isOnResult) {
+          {{ answer?.isCorrect ? 'Correct! Select for next question.' : 'Incorrect! Select for next question.' }}
+        } @else {
           Check Answer
-        </button>
-      </div>
-    }
+        }
+      </button>
+    </div>
   </div>
 </div>
 </main>
