@@ -46,6 +46,8 @@ export class BasicMathComponent {
   currentAnswer: string = '';
   answer: Answer | null = null;
   isOnResult: boolean = false;
+  scoreVal: number = 0;
+  streakVal: number = 0;
 
   /**
    * Generates a new question and resets the answer and result flags
@@ -56,6 +58,7 @@ export class BasicMathComponent {
       this.isOnResult = false;
     } else {
       this.currentAnswer = (document.getElementById('answer') as HTMLInputElement).value;
+      console.log(this.currentAnswer);
       this.submitAnswer();
     }
 
@@ -149,11 +152,14 @@ export class BasicMathComponent {
   checkAnswer(answerValue: number) : Answer {
     const correctAnswer = this.calculateAnswerValue(this.question.num1, this.question.operator, this.question.num2);
     if (answerValue === correctAnswer) {
+      this.scoreVal += 1;
+      this.streakVal += 1;
       return {
         answer: correctAnswer,
         isCorrect: true
       }
     } else {
+      this.streakVal = 0;
       return {
         answer: correctAnswer,
         isCorrect: false
