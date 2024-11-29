@@ -11,6 +11,8 @@
     <hr class="min-w-80 border-gray-400 mb-4" aria-hidden="true" />
     <p class="text-gray-800 text-lg pb-4">Score: {{ scoreVal }} | Streak: {{ streakVal }}</p>
     <hr class="min-w-80 border-gray-400 mb-4" aria-hidden="true" />
+    <audio src="/sounds/correctsound.wav" id="correctAudio" aria-hidden="true" preload="auto"></audio>
+    <audio src="/sounds/incorrectsound.wav" id="incorrectAudio" aria-hidden="true" preload="auto"></audio>
 
       <div class="flex flex-row items-center gap-4">
         @if (isOnResult) {

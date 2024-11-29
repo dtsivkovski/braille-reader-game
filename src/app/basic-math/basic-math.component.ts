@@ -54,8 +54,10 @@ export class BasicMathComponent {
    */
   nextQuestion(): void {
     if (this.isOnResult) {
+      // reset question and UI
       this.question = this.generateQuestion();
       this.isOnResult = false;
+      this.resetAudioElements();
     } else {
       this.currentAnswer = (document.getElementById('answer') as HTMLInputElement).value;
       console.log(this.currentAnswer);
@@ -152,18 +154,41 @@ export class BasicMathComponent {
   checkAnswer(answerValue: number) : Answer {
     const correctAnswer = this.calculateAnswerValue(this.question.num1, this.question.operator, this.question.num2);
     if (answerValue === correctAnswer) {
+
+      // update score values
       this.scoreVal += 1;
       this.streakVal += 1;
+
+      // play audio
+      const audio = document.getElementById('correctAudio') as HTMLAudioElement;
+      audio.play();
+
       return {
         answer: correctAnswer,
         isCorrect: true
       }
     } else {
+      // update streak
       this.streakVal = 0;
+
+      // play audio
+      const audio = document.getElementById('incorrectAudio') as HTMLAudioElement;
+      audio.play();
+
+      // return correct answer
       return {
         answer: correctAnswer,
         isCorrect: false
       }
     }
+  }
+
+  resetAudioElements(): void {
+    const correctAudio = document.getElementById('correctAudio') as HTMLAudioElement;
+    correctAudio.currentTime = 0;
+    correctAudio.pause();
+    const incorrectAudio = document.getElementById('incorrectAudio') as HTMLAudioElement;
+    incorrectAudio.currentTime = 0;
+    incorrectAudio.pause();
   }
 }
