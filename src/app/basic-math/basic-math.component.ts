@@ -58,10 +58,14 @@ export class BasicMathComponent {
       this.question = this.generateQuestion();
       this.isOnResult = false;
       this.resetAudioElements();
+      // focus on question
+      document.getElementById('question')!.focus();
     } else {
       this.currentAnswer = (document.getElementById('answer') as HTMLInputElement).value;
       console.log(this.currentAnswer);
       this.submitAnswer();
+      // focus on result
+      document.getElementById('result')!.focus();
     }
 
   }
