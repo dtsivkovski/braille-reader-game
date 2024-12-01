@@ -58,17 +58,14 @@ export class BasicMathComponent {
       this.question = this.generateQuestion();
       this.isOnResult = false;
       this.resetAudioElements();
-      // focus on question
-      document.getElementById('question')!.focus();
     } else {
       this.currentAnswer = (document.getElementById('answer') as HTMLInputElement).value;
       console.log(this.currentAnswer);
       this.submitAnswer();
-      // focus on result
-      document.getElementById('result')!.focus();
     }
 
   }
+
   /**
    * Submits the user's answer from input update and checks if it is correct
    */
@@ -89,7 +86,7 @@ export class BasicMathComponent {
   generateQuestion(type: string | null = null): Question {
     // define operators and names
     const operators = ['+', '-', '*', '/'];
-    const operatorNames = ['plus', 'minus', 'times', 'divided by'];
+    const operatorNames = ['+', '-', '*', '/']; // includes support for word form - ['plus', 'minus', 'times', 'divided by']
     const operatorKeys = ['addition', 'subtraction', 'multiplication', 'division'];
 
     // generate random operator and name
@@ -187,6 +184,10 @@ export class BasicMathComponent {
     }
   }
 
+  /**
+   * Resets the audio elements to the beginning and pauses them
+   * @description Resets the audio elements for the correct and incorrect sounds to the beginning
+   */
   resetAudioElements(): void {
     const correctAudio = document.getElementById('correctAudio') as HTMLAudioElement;
     correctAudio.currentTime = 0;
