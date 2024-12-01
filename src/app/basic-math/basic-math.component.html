@@ -20,27 +20,26 @@
     <audio src="/sounds/correctsound.wav" id="correctAudio" aria-hidden="true" preload="auto"></audio>
     <audio src="/sounds/incorrectsound.wav" id="incorrectAudio" aria-hidden="true" preload="auto"></audio>
 
-    <div class="flex flex-row items-center gap-4"
-      [attr.aria-label]="isOnResult ? 'Answer feedback' : 'Math question and input'">
-      <p class="text-3xl" 
-        id="mathPrompt" 
-        aria-live="assertive">
-        {{ isOnResult ? (answer!.isCorrect ? "Correct" : "Incorrect. The correct answer is " + answer!.answer) : 
-          question.num1 + ' ' + question.operatorName + ' ' + question.num2 + ' = ' }}
-      </p>
-      @if (!isOnResult) {
-        <input
-          type="number"
-          id="answer"
-          autocomplete="off"
-          class="border border-slate-300 rounded-md py-2 px-3 shadow-sm focus:border-pink-600 focus:outline-none focus:ring-fuchsia-600 focus:ring-1"
-          placeholder="Enter your answer"
-          (keydown.enter)="nextQuestion()"
-          aria-label="Enter your answer"
-        />
-      }
-    </div>
-    <div class="flex flex-row items-center gap-4 mt-4">
+    <div [attr.aria-label]="isOnResult ? 'Answer feedback' : 'Math question'" class="flex flex-col items-center">
+      <div class="flex flex-row items-center gap-4">
+        <p class="text-3xl" 
+          id="mathPrompt" 
+          aria-live="assertive">
+          {{ isOnResult ? (answer!.isCorrect ? "Correct" : "Incorrect. The correct answer is " + answer!.answer) : 
+            question.num1 + ' ' + question.operatorName + ' ' + question.num2 + ' = ' }}
+        </p>
+        @if (!isOnResult) {
+          <input
+            type="number"
+            id="answer"
+            autocomplete="off"
+            class="border border-slate-300 rounded-md py-2 px-3 shadow-sm focus:border-pink-600 focus:outline-none focus:ring-fuchsia-600 focus:ring-1"
+            placeholder="Enter your answer"
+            (keydown.enter)="nextQuestion()"
+            aria-label="Enter your answer"
+          />
+        }
+      </div>
       <button class="bg-gradient-to-br
             from-purple-600
             to-pink-500
@@ -49,6 +48,7 @@
             text-white
             px-4
             py-2
+            mt-3
             rounded-md
             transition-colors
             duration-200
