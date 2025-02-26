@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Question } from '../types/questions';
 import { Answer } from '../types/answer';
 import { QuestionBounds } from '../types/questionBounds';
 import { LucideAngularModule, ArrowLeft } from 'lucide-angular';
+import { FocusService } from '../services/focus.service';
+
 @Component({
   selector: 'app-basic-math',
   standalone: true,
@@ -10,7 +12,7 @@ import { LucideAngularModule, ArrowLeft } from 'lucide-angular';
   templateUrl: './basic-math.component.html',
   styleUrl: './basic-math.component.scss'
 })
-export class BasicMathComponent {
+export class BasicMathComponent implements OnInit, AfterViewInit {
 
   // icon for HTML
   readonly ArrowLeftIcon = ArrowLeft;
@@ -49,6 +51,19 @@ export class BasicMathComponent {
   scoreVal: number = 0;
   streakVal: number = 0;
 
+  constructor(private focusService: FocusService) {}
+
+  ngOnInit() {
+    // Initialize component
+  }
+
+  ngAfterViewInit() {
+    // Set focus to the heading when component loads
+    this.focusService.setFocus('math-game-heading');
+    // Announce to screen readers
+    this.focusService.announce('Basic Math Game loaded');
+  }
+
   /**
    * Generates a new question and resets the answer and result flags
    */
@@ -59,11 +74,20 @@ export class BasicMathComponent {
       this.isOnResult = false;
       this.resetAudioElements();
     } else {
-      this.currentAnswer = (document.getElementById('answer') as HTMLInputElement).value;
+      const answerInputElement = document.getElementById('answer') as HTMLInputElement;
+      if (answerInputElement) {
+        this.currentAnswer = answerInputElement.value;
+      }
       console.log(this.currentAnswer);
       this.submitAnswer();
     }
 
+    // Set focus to the appropriate element after generating a new question
+    if (!this.isOnResult) {
+      this.focusService.setFocus('answer');
+    } else {
+      this.focusService.setFocus('mathPrompt');
+    }
   }
 
   /**
@@ -121,7 +145,7 @@ export class BasicMathComponent {
       operator,
       operatorName,
       num2
-    }
+    };
   }
 
   /**
@@ -152,35 +176,38 @@ export class BasicMathComponent {
    * @description Compares the user's answer with the stored correct answer and updates
    * the isCorrect flag accordingly. The answer object must exist before calling this method.
    */
-  checkAnswer(answerValue: number) : Answer {
+  checkAnswer(answerValue: number): Answer {
     const correctAnswer = this.calculateAnswerValue(this.question.num1, this.question.operator, this.question.num2);
     if (answerValue === correctAnswer) {
-
       // update score values
       this.scoreVal += 1;
       this.streakVal += 1;
 
       // play audio
       const audio = document.getElementById('correctAudio') as HTMLAudioElement;
-      audio.play();
+      if (audio) {
+        audio.play();
+      }
 
       return {
         answer: correctAnswer,
         isCorrect: true
-      }
+      };
     } else {
       // update streak
       this.streakVal = 0;
 
       // play audio
       const audio = document.getElementById('incorrectAudio') as HTMLAudioElement;
-      audio.play();
+      if (audio) {
+        audio.play();
+      }
 
       // return correct answer
       return {
         answer: correctAnswer,
         isCorrect: false
-      }
+      };
     }
   }
 
@@ -190,10 +217,15 @@ export class BasicMathComponent {
    */
   resetAudioElements(): void {
     const correctAudio = document.getElementById('correctAudio') as HTMLAudioElement;
-    correctAudio.currentTime = 0;
-    correctAudio.pause();
+    if (correctAudio) {
+      correctAudio.currentTime = 0;
+      correctAudio.pause();
+    }
+    
     const incorrectAudio = document.getElementById('incorrectAudio') as HTMLAudioElement;
-    incorrectAudio.currentTime = 0;
-    incorrectAudio.pause();
+    if (incorrectAudio) {
+      incorrectAudio.currentTime = 0;
+      incorrectAudio.pause();
+    }
   }
 }

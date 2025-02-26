@@ -1,64 +1,65 @@
 <div role="region">
   <div class="flex flex-col h-screen">
-  <div class="flex flex-row justify-start p-4">
-    <a class="bg-transparent text-gray-800 rounded-md border border-gray-500 pr-4 pl-3 py-2 flex flex-row items-center focus:outline-2 focus:outline-fuchsia-600"
-     href="/"
-     aria-label="Return to Home Page">
-      <lucide-icon [img]="ArrowLeftIcon" class="w-4 h-4 mr-2" aria-hidden="true" />
-      Return to Home Page
-    </a>
-  </div>
-  <div class="flex flex-col items-center justify-center h-full pb-16" role="region" aria-label="Math game content">
-
-    <h1 class="text-4xl font-bold mb-4">Basic Math Game</h1>
-    <hr class="min-w-80 border-gray-400 mb-4" aria-hidden="true" />
-    <div class="flex flex-row items-center gap-6" role="status" aria-live="polite">
-      <p class="text-gray-800 text-lg pb-4">Score: {{ scoreVal }}</p>
-      <p class="text-gray-800 text-lg pb-4">Streak: {{ streakVal }}</p>
+    <div class="flex flex-row justify-start p-4">
+      <a class="bg-transparent text-gray-800 rounded-md border border-gray-500 pr-4 pl-3 py-2 flex flex-row items-center focus:outline-2 focus:outline-fuchsia-600"
+       href="/"
+       aria-label="Return to Home Page">
+        <lucide-icon [img]="ArrowLeftIcon" class="w-4 h-4 mr-2" aria-hidden="true" />
+        Return to Home Page
+      </a>
     </div>
-    <hr class="min-w-80 border-gray-400 mb-4" aria-hidden="true" />
-    <audio src="/sounds/correctsound.wav" id="correctAudio" aria-hidden="true" preload="auto"></audio>
-    <audio src="/sounds/incorrectsound.wav" id="incorrectAudio" aria-hidden="true" preload="auto"></audio>
+    <div class="flex flex-col items-center justify-center h-full pb-16" role="region" aria-label="Math game content">
 
-    <div [attr.aria-label]="isOnResult ? 'Answer feedback' : 'Math question'" class="flex flex-col items-center">
-      <div class="flex flex-row items-center gap-4">
-        <p class="text-3xl" 
-          id="mathPrompt" 
-          aria-live="assertive">
-          {{ isOnResult ? (answer!.isCorrect ? "Correct" : "Incorrect. The correct answer is " + answer!.answer) : 
-            question.num1 + ' ' + question.operatorName + ' ' + question.num2 + ' = ' }}
-        </p>
-        @if (!isOnResult) {
-          <input
-            type="number"
-            id="answer"
-            autocomplete="off"
-            class="border border-slate-300 rounded-md py-2 px-3 shadow-sm focus:border-pink-600 focus:outline-none focus:ring-fuchsia-600 focus:ring-1"
-            placeholder="Enter your answer"
-            (keydown.enter)="nextQuestion()"
-            aria-label="Enter your answer"
-          />
-        }
+      <h1 class="text-4xl font-bold mb-4" id="math-game-heading" tabindex="-1">Basic Math Game</h1>
+      <hr class="min-w-80 border-gray-400 mb-4" aria-hidden="true" />
+      <div class="flex flex-row items-center gap-6" role="status" aria-live="polite">
+        <p class="text-gray-800 text-lg pb-4">Score: {{ scoreVal }}</p>
+        <p class="text-gray-800 text-lg pb-4">Streak: {{ streakVal }}</p>
       </div>
-      <button class="bg-gradient-to-br
-            from-purple-600
-            to-pink-500
-            hover:from-purple-600
-            hover:to-pink-600
-            text-white
-            px-4
-            py-2
-            mt-3
-            rounded-md
-            transition-colors
-            duration-200
-            text-center"
-        (click)="nextQuestion()"
-        aria-live="assertive"
-        [attr.aria-label]="isOnResult ? 'Proceed to next question' : 'Check your answer'">
-        {{ isOnResult ? 'Proceed to next question' : 'Check your answer' }}
-      </button>
+      <hr class="min-w-80 border-gray-400 mb-4" aria-hidden="true" />
+      <audio src="/sounds/correctsound.wav" id="correctAudio" aria-hidden="true" preload="auto"></audio>
+      <audio src="/sounds/incorrectsound.wav" id="incorrectAudio" aria-hidden="true" preload="auto"></audio>
+
+      <div [attr.aria-label]="isOnResult ? 'Answer feedback' : 'Math question'" class="flex flex-col items-center">
+        <div class="flex flex-row items-center gap-4">
+          <p class="text-3xl" 
+            id="mathPrompt" 
+            tabindex="-1"
+            aria-live="assertive">
+            {{ isOnResult ? (answer!.isCorrect ? "Correct" : "Incorrect. The correct answer is " + answer!.answer) : 
+              question.num1 + ' ' + question.operatorName + ' ' + question.num2 + ' = ' }}
+          </p>
+          @if (!isOnResult) {
+            <input
+              type="number"
+              id="answer"
+              autocomplete="off"
+              class="border border-slate-300 rounded-md py-2 px-3 shadow-sm focus:border-pink-600 focus:outline-none focus:ring-fuchsia-600 focus:ring-1"
+              placeholder="Enter your answer"
+              (keydown.enter)="nextQuestion()"
+              aria-label="Enter your answer"
+            />
+          }
+        </div>
+        <button class="bg-gradient-to-br
+              from-purple-600
+              to-pink-500
+              hover:from-purple-600
+              hover:to-pink-600
+              text-white
+              px-4
+              py-2
+              mt-3
+              rounded-md
+              transition-colors
+              duration-200
+              text-center"
+          (click)="nextQuestion()"
+          aria-live="assertive"
+          [attr.aria-label]="isOnResult ? 'Proceed to next question' : 'Check your answer'">
+          {{ isOnResult ? 'Proceed to next question' : 'Check your answer' }}
+        </button>
+      </div>
     </div>
   </div>
-</div>
 </div>
