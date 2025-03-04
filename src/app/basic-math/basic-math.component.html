@@ -1,12 +1,43 @@
 <div role="region">
   <div class="flex flex-col h-screen">
-    <div class="flex flex-row justify-start p-4">
+    <div class="flex flex-row justify-between p-4">
       <a class="bg-transparent text-gray-800 rounded-md border border-gray-500 pr-4 pl-3 py-2 flex flex-row items-center focus:outline-2 focus:outline-fuchsia-600"
        href="/"
        aria-label="Return to Home Page">
         <lucide-icon [img]="ArrowLeftIcon" class="w-4 h-4 mr-2" aria-hidden="true" />
         Return to Home Page
       </a>
+      <button class="bg-transparent text-gray-800 rounded-md border border-gray-500 pr-4 pl-3 py-2 flex flex-row items-center focus:outline-2 focus:outline-fuchsia-600"
+      (click)="toggleSettings()"
+      aria-label="Toggle Settings"
+      >
+      <lucide-icon [img]="SettingsIcon" class="w-4 h-4 mr-2"/>
+      Settings
+    </button>
+    </div>
+    <div class="flex-col items-center justify-center pb-10 pt-4 border-gray-800 border-r-0 border-l-0 border hidden" 
+      id="settingsMenu"
+      role="region"
+      aria-label="Game settings"
+      aria-hidden="true">
+      <h2 class="text-2xl font-bold mb-2">Game Settings</h2>
+      <hr class="min-w-80 border-gray-400 mb-4" aria-hidden="true" />
+      <label for="additionToggle" class="flex flex-row items-center gap-2">
+        <input type="checkbox" aria-labelledby="additionToggle" id="additionToggle" [checked]="gameSettings.additionEnabled" (change)="gameSettings.additionEnabled = !gameSettings.additionEnabled" />
+        <span>Addition</span>
+      </label>
+      <label for="subtractionToggle" class="flex flex-row items-center gap-2">
+        <input type="checkbox" aria-labelledby="subtractionToggle" id="subtractionToggle" [checked]="gameSettings.subtractionEnabled" (change)="gameSettings.subtractionEnabled = !gameSettings.subtractionEnabled" />
+        <span>Subtraction</span>
+      </label>
+      <label for="multiplicationToggle" class="flex flex-row items-center gap-2">
+        <input type="checkbox" aria-labelledby="multiplicationToggle" id="multiplicationToggle" [checked]="gameSettings.multiplicationEnabled" (change)="gameSettings.multiplicationEnabled = !gameSettings.multiplicationEnabled" />
+        <span>Multiplication</span>
+      </label>
+      <label for="divisionToggle" class="flex flex-row items-center gap-2">
+        <input type="checkbox" aria-labelledby="divisionToggle" id="divisionToggle" [checked]="gameSettings.divisionEnabled" (change)="gameSettings.divisionEnabled = !gameSettings.divisionEnabled" />
+        <span>Division</span>
+      </label>
     </div>
     <div class="flex flex-col items-center justify-center h-full pb-16" role="region" aria-label="Math game content">
 

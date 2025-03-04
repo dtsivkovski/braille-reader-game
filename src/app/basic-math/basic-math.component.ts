@@ -1,8 +1,9 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { Question } from '../types/questions';
 import { Answer } from '../types/answer';
+import { GameSettings } from '../types/gameSettings';
 import { QuestionBounds } from '../types/questionBounds';
-import { LucideAngularModule, ArrowLeft } from 'lucide-angular';
+import { Question } from '../types/questions';
+import { LucideAngularModule, ArrowLeft, Settings } from 'lucide-angular';
 import { FocusService } from '../services/focus.service';
 
 @Component({
@@ -16,6 +17,14 @@ export class BasicMathComponent implements OnInit, AfterViewInit {
 
   // icon for HTML
   readonly ArrowLeftIcon = ArrowLeft;
+  readonly SettingsIcon = Settings;
+
+  gameSettings : GameSettings = {
+    additionEnabled: true,
+    subtractionEnabled: true,
+    multiplicationEnabled: true,
+    divisionEnabled: true
+  }
 
   // set initial parameters
   questionBounds: QuestionBounds = {
@@ -233,4 +242,22 @@ export class BasicMathComponent implements OnInit, AfterViewInit {
       incorrectAudio.pause();
     }
   }
+
+  toggleSettings(): void {
+    // toggles the settings menu
+    const settingsMenu = document.getElementById('settingsMenu');
+    if (settingsMenu) {
+      if (settingsMenu.classList.contains('hidden')) {
+        settingsMenu.classList.remove('hidden');
+        settingsMenu.classList.add('flex');
+        settingsMenu.ariaHidden = 'false';
+      }
+      else {
+        settingsMenu.classList.remove('flex');
+        settingsMenu.classList.add('hidden');
+        settingsMenu.ariaHidden = 'true';
+      }
+    }
+  }
+
 }
