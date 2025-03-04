@@ -32,8 +32,8 @@ export class FocusService {
     // if in a browser then do the action
     if (isPlatformBrowser(this.platformId)) {
       const announcer = document.createElement('div');
-      announcer.setAttribute('aria-live', 'assertive');
-      announcer.setAttribute('class', 'sr-only');
+      announcer.setAttribute('aria-live', 'assertive'); // assertive aria live
+      announcer.setAttribute('class', 'sr-only'); // hide it visually, only for screen readers to see
       document.body.appendChild(announcer);
       
       setTimeout(() => {

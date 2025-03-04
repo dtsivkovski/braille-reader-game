@@ -23,13 +23,13 @@ export class BasicMathComponent implements OnInit, AfterViewInit {
       min_n1: 1,
       max_n1: 100,
       min_n2: 0,
-      max_n2: 100
+      max_n2: 50
     },
     subtraction: {
       min_n1: 2,
       max_n1: 100,
       min_n2: 0,
-      max_n2: 100
+      max_n2: 50
     },
     multiplication: {
       min_n1: 0,
@@ -54,7 +54,7 @@ export class BasicMathComponent implements OnInit, AfterViewInit {
   constructor(private focusService: FocusService) {}
 
   ngOnInit() {
-    // Initialize component
+    // component initialization
   }
 
   ngAfterViewInit() {
@@ -84,9 +84,9 @@ export class BasicMathComponent implements OnInit, AfterViewInit {
 
     // Set focus to the appropriate element after generating a new question
     if (!this.isOnResult) {
-      this.focusService.setFocus('answer');
+      this.focusService.setFocus('answer'); // set focus to the answer to the question
     } else {
-      this.focusService.setFocus('mathPrompt');
+      this.focusService.setFocus('mathPrompt'); // set focus to the math prompt
     }
   }
 
@@ -138,6 +138,11 @@ export class BasicMathComponent implements OnInit, AfterViewInit {
     // check for integer division and division by 0
     if (operator === '/' && (num1 % num2 !== 0 || num2 === 0)) {
       return this.generateQuestion('/');
+    }
+
+    // prevent negatives for subtraction
+    if (operator === '-' && num1 < num2) {
+      return this.generateQuestion('-');
     }
 
     return {
