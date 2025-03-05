@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { BasicMathComponent } from './basic-math/basic-math.component';
+import { BasicMathComponent } from './math-game/basic-math/basic-math.component';
 import { HomeComponent } from './home/home.component';
 
 export const routes: Routes = [
