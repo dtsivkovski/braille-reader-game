@@ -1,8 +1,8 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { Answer } from '../../types/answer';
-import { GameSettings } from '../../types/gameSettings';
-import { QuestionBounds } from '../../types/questionBounds';
-import { Question } from '../../types/questions';
+import { Answer } from './types/answer';
+import { GameSettings } from './types/gameSettings';
+import { QuestionBounds } from './types/questionBounds';
+import { Question } from './types/questions';
 import { LucideAngularModule, ArrowLeft, Settings } from 'lucide-angular';
 import { FocusService } from '../../services/focus.service';
 
