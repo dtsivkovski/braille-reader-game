@@ -283,14 +283,18 @@ export class BasicMathComponent implements OnInit, AfterViewInit {
     const settingsMenu = document.getElementById('settingsMenu');
     if (settingsMenu) {
       if (settingsMenu.classList.contains('hidden')) {
+        // open settings menu
         settingsMenu.classList.remove('hidden');
         settingsMenu.classList.add('flex');
         settingsMenu.ariaHidden = 'false';
       }
       else {
+        // close settings menu and redo question
         settingsMenu.classList.remove('flex');
         settingsMenu.classList.add('hidden');
         settingsMenu.ariaHidden = 'true';
+        this.isOnResult = true;
+        this.nextQuestion();
       }
     }
   }

@@ -11,9 +11,9 @@
       (click)="toggleSettings()"
       aria-label="Toggle Settings"
       >
-      <lucide-icon [img]="SettingsIcon" class="w-4 h-4 mr-2"/>
-      Settings
-    </button>
+        <lucide-icon [img]="SettingsIcon" class="w-4 h-4 mr-2"/>
+        Settings
+      </button>
     </div>
     <div class="flex-col items-center justify-center pb-10 pt-4 border-gray-800 border-r-0 border-l-0 border hidden" 
       id="settingsMenu"
@@ -38,6 +38,21 @@
         <input type="checkbox" aria-labelledby="divisionToggle" id="divisionToggle" [checked]="gameSettings.divisionEnabled" (change)="gameSettings.divisionEnabled = !gameSettings.divisionEnabled" />
         <span>Division</span>
       </label>
+      <button  class="bg-gradient-to-br
+        from-purple-600
+        to-pink-500
+        hover:from-purple-600
+        hover:to-pink-600
+        text-white
+        px-4
+        py-2
+        mt-3
+        rounded-md
+        transition-colors
+        duration-200
+        text-center"
+        (click)="toggleSettings()"
+        aria-label="Close Settings">Close Settings</button>
     </div>
     <div class="flex flex-col items-center justify-center h-full pb-16" role="region" aria-label="Math game content">
 
