@@ -64,7 +64,7 @@
              id="characterPrompt"
              tabindex="-1"
              aria-live="assertive">
-            {{ isOnResult ? (isCorrect ? "Correct" : "Incorrect. The correct answer is " + question.character + ". You guessed " + question.character + ".") : "Guess the following character: " }}
+            {{ isOnResult ? (isCorrect ? "Correct" : "Incorrect. The correct answer is " + question.character + ". You guessed " + currentAnswer + ".") : "Guess the following character: " + question.character }}
           </p>
           @if (!isOnResult) {
             <!-- TODO: Add a button that, on click, will play TTS of the desired character -->
@@ -74,7 +74,7 @@
               autocomplete="off"
               class="border border-slate-300 rounded-md py-2 px-3 shadow-sm focus:border-pink-600 focus:outline-none focus:ring-fuchsia-600 focus:ring-1"
               placeholder="Type the given letter"
-              (keydown.enter)="nextQuestion()"
+              (keydown.enter)="submitAnswer()"
               aria-label="Enter your answer"
             />
           }

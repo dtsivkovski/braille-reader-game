@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {ArrowLeft, LucideAngularModule, Settings} from "lucide-angular";
 import {CharacterGameSettings} from './types/gameSettings';
 import {CharacterGameQuestion} from './types/question';
+import CharacterGameQuestionTypes from './types/questionTypes';
 
 @Component({
   selector: 'app-character-game',
@@ -21,7 +22,7 @@ export class CharacterGameComponent {
   // game settings
   gameSettings : CharacterGameSettings = {
     lettersEnabled: true,
-    numbersEnabled: true,
+    numbersEnabled: false,
   }
 
   scoreVal: number = 0;
@@ -33,9 +34,44 @@ export class CharacterGameComponent {
   isCorrect: boolean = false;
   currentAnswer: string = "";
 
+  ngOnInit() {
+    // component initialization
+    this.nextQuestion();
+  }
+
+  ngAfterViewInit() {
+    // TODO: Set focus to the heading when component loads and announce to screen readers
+    // this.focusService.setFocus('character-game-heading');
+    // this.focusService.announce('Character Typing Game loaded');
+  }
+
   //TODO: Implement Game Question Generation Logic
   nextQuestion() : void {
+    const CGQT = CharacterGameQuestionTypes; // redefine for shorter definition
+    let questionTypes: CharacterGameQuestionTypes[] = [];
+    // push question types to array
+    if (this.gameSettings.lettersEnabled) { questionTypes.push(CGQT.letters); }
+    if (this.gameSettings.numbersEnabled) { questionTypes.push(CGQT.numbers); }
 
+    // generate question type
+    let questionType: CharacterGameQuestionTypes = questionTypes[Math.floor(Math.random() * questionTypes.length)];
+    switch (questionType) {
+      case CGQT.letters:
+        this.generateLetterQuestion();
+        break;
+      case CGQT.numbers:
+        //TODO: generate a number question
+        break;
+      default:
+        break;
+    }
+    this.isOnResult = false;
+
+  }
+
+  generateLetterQuestion() : void {
+    const letterVal = Math.floor(Math.random() * 26) + 97; // randomly generates a value from 97 to 122
+    this.question.character = String.fromCharCode(letterVal);
   }
 
   //TODO: Implement Game Question Submission Logic
@@ -44,7 +80,7 @@ export class CharacterGameComponent {
   }
 
   //TODO: Add TTS to speak the necessary character out loud
-
+  //TODO: Implement focus service
 
 
   toggleSettings(): void {
