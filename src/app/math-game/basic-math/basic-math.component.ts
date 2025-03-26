@@ -1,9 +1,10 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { Question } from '../types/questions';
-import { Answer } from '../types/answer';
-import { QuestionBounds } from '../types/questionBounds';
-import { LucideAngularModule, ArrowLeft } from 'lucide-angular';
-import { FocusService } from '../services/focus.service';
+import { Answer } from './types/answer';
+import { GameSettings } from './types/gameSettings';
+import { QuestionBounds } from './types/questionBounds';
+import { Question } from './types/questions';
+import { LucideAngularModule, ArrowLeft, Settings } from 'lucide-angular';
+import { FocusService } from '../../services/focus.service';
 
 @Component({
   selector: 'app-basic-math',
@@ -16,6 +17,14 @@ export class BasicMathComponent implements OnInit, AfterViewInit {
 
   // icon for HTML
   readonly ArrowLeftIcon = ArrowLeft;
+  readonly SettingsIcon = Settings;
+
+  gameSettings : GameSettings = {
+    additionEnabled: true,
+    subtractionEnabled: true,
+    multiplicationEnabled: true,
+    divisionEnabled: true
+  }
 
   // set initial parameters
   questionBounds: QuestionBounds = {
@@ -108,10 +117,31 @@ export class BasicMathComponent implements OnInit, AfterViewInit {
    * @returns A question object containing the numbers and operator
    */
   generateQuestion(type: string | null = null): Question {
-    // define operators and names
-    const operators = ['+', '-', '*', '/'];
-    const operatorNames = ['+', '-', '*', '/']; // includes support for word form - ['plus', 'minus', 'times', 'divided by']
-    const operatorKeys = ['addition', 'subtraction', 'multiplication', 'division'];
+
+    // build operators array based on game settings
+    let operators : string[] = [];
+    let operatorNames : string[] = [];
+    let operatorKeys: string[] = [];
+    if (this.gameSettings.additionEnabled) {
+      operators.push('+');
+      operatorNames.push('plus');
+      operatorKeys.push('addition');
+    }
+    if (this.gameSettings.subtractionEnabled) {
+      operators.push('-');
+      operatorNames.push('minus');
+      operatorKeys.push('subtraction');
+    }
+    if (this.gameSettings.multiplicationEnabled) {
+      operators.push('*');
+      operatorNames.push('times');
+      operatorKeys.push('multiplication');
+    }
+    if (this.gameSettings.divisionEnabled) {
+      operators.push('/');
+      operatorNames.push('divided by');
+      operatorKeys.push('division');
+    }
 
     // generate random operator and name
     let operator = operators[Math.floor(Math.random() * operators.length)];
@@ -136,13 +166,27 @@ export class BasicMathComponent implements OnInit, AfterViewInit {
     ) + bounds.min_n2;
 
     // check for integer division and division by 0
-    if (operator === '/' && (num1 % num2 !== 0 || num2 === 0)) {
-      return this.generateQuestion('/');
+    while (operator === '/' && (num1 % num2 !== 0 || num2 === 0)) {
+      num1 = Math.floor(
+        Math.random() *
+        (bounds.max_n1 - bounds.min_n1 + 1)
+      ) + bounds.min_n1;
+      num2 = Math.floor(
+        Math.random() *
+        (bounds.max_n2 - bounds.min_n2 + 1)
+      ) + bounds.min_n2;
     }
 
     // prevent negatives for subtraction
-    if (operator === '-' && num1 < num2) {
-      return this.generateQuestion('-');
+    while (operator === '-' && num1 < num2) {
+      num1 = Math.floor(
+        Math.random() *
+        (bounds.max_n1 - bounds.min_n1 + 1)
+      ) + bounds.min_n1;
+      num2 = Math.floor(
+        Math.random() *
+        (bounds.max_n2 - bounds.min_n2 + 1)
+      ) + bounds.min_n2;
     }
 
     return {
@@ -233,4 +277,26 @@ export class BasicMathComponent implements OnInit, AfterViewInit {
       incorrectAudio.pause();
     }
   }
+
+  toggleSettings(): void {
+    // toggles the settings menu
+    const settingsMenu = document.getElementById('settingsMenu');
+    if (settingsMenu) {
+      if (settingsMenu.classList.contains('hidden')) {
+        // open settings menu
+        settingsMenu.classList.remove('hidden');
+        settingsMenu.classList.add('flex');
+        settingsMenu.ariaHidden = 'false';
+      }
+      else {
+        // close settings menu and redo question
+        settingsMenu.classList.remove('flex');
+        settingsMenu.classList.add('hidden');
+        settingsMenu.ariaHidden = 'true';
+        this.isOnResult = true;
+        this.nextQuestion();
+      }
+    }
+  }
+
 }
