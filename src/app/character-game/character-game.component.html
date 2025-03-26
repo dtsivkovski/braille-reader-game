@@ -1,0 +1,103 @@
+<div role="region">
+  <div class="flex flex-col h-screen">
+    <div class="flex flex-row justify-between p-4">
+      <a class="bg-transparent text-gray-800 rounded-md border border-gray-500 pr-4 pl-3 py-2 flex flex-row items-center focus:outline-2 focus:outline-fuchsia-600"
+         href="/"
+         aria-label="Return to Home Page">
+        <lucide-icon [img]="ArrowLeftIcon" class="w-4 h-4 mr-2" aria-hidden="true" />
+        Return to Home Page
+      </a>
+      <button class="bg-transparent text-gray-800 rounded-md border border-gray-500 pr-4 pl-3 py-2 flex flex-row items-center focus:outline-2 focus:outline-fuchsia-600"
+              (click)="toggleSettings()"
+              aria-label="Toggle Settings"
+      >
+        <lucide-icon [img]="SettingsIcon" class="w-4 h-4 mr-2"/>
+        Settings
+      </button>
+    </div>
+    <div class="flex-col items-center justify-center pb-10 pt-4 border-gray-800 border-r-0 border-l-0 border hidden"
+         id="settingsMenu"
+         role="region"
+         aria-label="Game settings"
+         aria-hidden="true">
+      <h2 class="text-2xl font-bold mb-2">Game Settings</h2>
+      <hr class="min-w-80 border-gray-400 mb-4" aria-hidden="true" />
+      <label for="lettersToggle" class="flex flex-row items-center gap-2">
+        <input type="checkbox" aria-labelledby="lettersToggle" id="lettersToggle" [checked]="gameSettings.lettersEnabled" (change)="gameSettings.lettersEnabled = !gameSettings.lettersEnabled" />
+        <span>Letters</span>
+      </label>
+      <label for="numbersToggle" class="flex flex-row items-center gap-2">
+        <input type="checkbox" aria-labelledby="numbersToggle" id="numbersToggle" [checked]="gameSettings.numbersEnabled" (change)="gameSettings.numbersEnabled = !gameSettings.numbersEnabled" />
+        <span>Numbers</span>
+      </label>
+      <button  class="bg-gradient-to-br
+        from-purple-600
+        to-pink-500
+        hover:from-purple-600
+        hover:to-pink-600
+        text-white
+        px-4
+        py-2
+        mt-3
+        rounded-md
+        transition-colors
+        duration-200
+        text-center"
+               (click)="toggleSettings()"
+               aria-label="Close Settings">Close Settings</button>
+    </div>
+    <div class="flex flex-col items-center justify-center h-full pb-16" role="region" aria-label="Character game content">
+
+      <h1 class="text-4xl font-bold mb-4" id="character-game-heading" tabindex="-1">Character Typing Game</h1>
+      <hr class="min-w-80 border-gray-400 mb-4" aria-hidden="true" />
+      <div class="flex flex-row items-center gap-6" role="status" aria-live="polite">
+        <p class="text-gray-800 text-lg pb-4">Score: {{ scoreVal }}</p>
+        <p class="text-gray-800 text-lg pb-4">Streak: {{ streakVal }}</p>
+      </div>
+      <hr class="min-w-80 border-gray-400 mb-4" aria-hidden="true" />
+      <audio src="/sounds/correctsound.wav" id="correctAudio" aria-hidden="true" preload="auto"></audio>
+      <audio src="/sounds/incorrectsound.wav" id="incorrectAudio" aria-hidden="true" preload="auto"></audio>
+
+      <div [attr.aria-label]="isOnResult ? 'Answer feedback' : 'Character typing question'" class="flex flex-col items-center">
+        <div class="flex flex-row items-center gap-4">
+          <p class="text-3xl"
+             id="characterPrompt"
+             tabindex="-1"
+             aria-live="assertive">
+            {{ isOnResult ? (isCorrect ? "Correct" : "Incorrect. The correct answer is " + question.character + ". You guessed " + question.character + ".") : "Guess the following character: " }}
+          </p>
+          @if (!isOnResult) {
+            <!-- TODO: Add a button that, on click, will play TTS of the desired character -->
+            <input
+              type="text"
+              id="answer"
+              autocomplete="off"
+              class="border border-slate-300 rounded-md py-2 px-3 shadow-sm focus:border-pink-600 focus:outline-none focus:ring-fuchsia-600 focus:ring-1"
+              placeholder="Type the given letter"
+              (keydown.enter)="nextQuestion()"
+              aria-label="Enter your answer"
+            />
+          }
+        </div>
+        <button class="bg-gradient-to-br
+              from-purple-600
+              to-pink-500
+              hover:from-purple-600
+              hover:to-pink-600
+              text-white
+              px-4
+              py-2
+              mt-3
+              rounded-md
+              transition-colors
+              duration-200
+              text-center"
+                (click)="isOnResult ? nextQuestion() : submitAnswer()"
+                aria-live="assertive"
+                [attr.aria-label]="isOnResult ? 'Proceed to next question' : 'Check your answer'">
+          {{ isOnResult ? 'Proceed to next question' : 'Check your answer' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

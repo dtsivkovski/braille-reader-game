@@ -1,8 +1,8 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { Answer } from './types/answer';
-import { GameSettings } from './types/gameSettings';
-import { QuestionBounds } from './types/questionBounds';
-import { Question } from './types/questions';
+import { BasicMathAnswer } from './types/answer';
+import { BasicMathGameSettings } from './types/gameSettings';
+import { BasicMathQuestionBounds } from './types/questionBounds';
+import { BasicMathQuestion } from './types/questions';
 import { LucideAngularModule, ArrowLeft, Settings } from 'lucide-angular';
 import { FocusService } from '../../services/focus.service';
 
@@ -19,7 +19,7 @@ export class BasicMathComponent implements OnInit, AfterViewInit {
   readonly ArrowLeftIcon = ArrowLeft;
   readonly SettingsIcon = Settings;
 
-  gameSettings : GameSettings = {
+  gameSettings : BasicMathGameSettings = {
     additionEnabled: true,
     subtractionEnabled: true,
     multiplicationEnabled: true,
@@ -27,7 +27,7 @@ export class BasicMathComponent implements OnInit, AfterViewInit {
   }
 
   // set initial parameters
-  questionBounds: QuestionBounds = {
+  questionBounds: BasicMathQuestionBounds = {
     addition: {
       min_n1: 1,
       max_n1: 100,
@@ -53,9 +53,9 @@ export class BasicMathComponent implements OnInit, AfterViewInit {
       max_n2: 10
     }
   };
-  question: Question = this.generateQuestion();
+  question: BasicMathQuestion = this.generateQuestion();
   currentAnswer: string = '';
-  answer: Answer | null = null;
+  answer: BasicMathAnswer | null = null;
   isOnResult: boolean = false;
   scoreVal: number = 0;
   streakVal: number = 0;
@@ -116,7 +116,7 @@ export class BasicMathComponent implements OnInit, AfterViewInit {
    * Generates a random question with a correct answer
    * @returns A question object containing the numbers and operator
    */
-  generateQuestion(type: string | null = null): Question {
+  generateQuestion(type: string | null = null): BasicMathQuestion {
 
     // build operators array based on game settings
     let operators : string[] = [];
@@ -155,7 +155,7 @@ export class BasicMathComponent implements OnInit, AfterViewInit {
     // generate random numbers
     let num1: number = 10;
     let num2: number = 10;
-    const bounds = this.questionBounds[operatorKey as keyof QuestionBounds]; // bounds as defined in questionBounds
+    const bounds = this.questionBounds[operatorKey as keyof BasicMathQuestionBounds]; // bounds as defined in questionBounds
     num1 = Math.floor(
       Math.random() *
       (bounds.max_n1 - bounds.min_n1 + 1)
@@ -225,7 +225,7 @@ export class BasicMathComponent implements OnInit, AfterViewInit {
    * @description Compares the user's answer with the stored correct answer and updates
    * the isCorrect flag accordingly. The answer object must exist before calling this method.
    */
-  checkAnswer(answerValue: number): Answer {
+  checkAnswer(answerValue: number): BasicMathAnswer {
     const correctAnswer = this.calculateAnswerValue(this.question.num1, this.question.operator, this.question.num2);
     if (answerValue === correctAnswer) {
       // update score values
@@ -270,7 +270,7 @@ export class BasicMathComponent implements OnInit, AfterViewInit {
       correctAudio.currentTime = 0;
       correctAudio.pause();
     }
-    
+
     const incorrectAudio = document.getElementById('incorrectAudio') as HTMLAudioElement;
     if (incorrectAudio) {
       incorrectAudio.currentTime = 0;

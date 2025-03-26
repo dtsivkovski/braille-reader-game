@@ -1,4 +1,4 @@
-interface QuestionBounds {
+interface BasicMathQuestionBounds {
   addition: {
     min_n1: number;
     max_n1: number;
@@ -25,4 +25,4 @@ interface QuestionBounds {
   };
 }
 
-export type { QuestionBounds };
+export type { BasicMathQuestionBounds };

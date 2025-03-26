@@ -1,6 +1,6 @@
-interface Answer {
+interface BasicMathAnswer {
   answer: number;
   isCorrect: boolean | null;
 }
 
-export type { Answer };
+export type { BasicMathAnswer };
