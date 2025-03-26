@@ -26,7 +26,7 @@
             id="mathPrompt" 
             tabindex="-1"
             aria-live="assertive">
-            {{ isOnResult ? (answer!.isCorrect ? "Correct" : "Incorrect. The correct answer is " + answer!.answer) : 
+            {{ isOnResult ? (answer!.isCorrect ? "Correct" : "Incorrect. The correct answer is " + answer!.answer + ". You guessed " + currentAnswer + ".") : 
               question.num1 + ' ' + question.operatorName + ' ' + question.num2 + ' = ' }}
           </p>
           @if (!isOnResult) {
