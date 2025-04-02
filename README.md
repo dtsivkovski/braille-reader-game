@@ -19,9 +19,9 @@ The game can be played online, deployed at [braille-reader-game.vercel.app](http
 
 ### Prerequisites
 
-- Node.js (v18 or higher)
+- Node.js (v22 or higher)
 - npm (comes with Node.js)
-- Angular CLI (v18.2.0 or higher)
+- Angular CLI (v22.5.1 or higher)
 
 ### Steps to Run Locally
 
